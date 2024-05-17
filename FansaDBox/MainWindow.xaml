@@ -5,8 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FansaDBox"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Width="1430" Height="940">
+    <Window.Resources>
+        <local:AuthorsConverter x:Key="authorsConverter"/>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid Grid.Column="0    "
+                  x:Name="author_grid" Margin="10,30,10,10" AutoGenerateColumns="False"
+                  MouseDoubleClick="Author_grid_MouseDoubleClick"
+                  CellEditEnding="Author_grid_CellEditEnding"
+                  SelectedCellsChanged="Author_grid_SelectedCellsChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <local:DataGridNumericColumn Header="Notation" Binding="{Binding Notation}" />
+                <local:DataGridNumericColumn Header="Volumes" Binding="{Binding NbrVolumes}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Grid.Column="1"
+                  x:Name="volume_grid" Margin="20,10,10,10" AutoGenerateColumns="False"
+                  MouseDoubleClick="Volume_grid_MouseDoubleClick"
+                  CellEditEnding="Volume_grid_CellEditEnding"
+                  SelectedCellsChanged="Volume_grid_SelectedCellsChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <local:DataGridNumericColumn Header="Notation" Binding="{Binding Notation}" />
+                <DataGridTextColumn Header="Authors" Binding="{Binding Authors, Converter={StaticResource authorsConverter}}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Filepath" IsReadOnly="True">
+                    <DataGridTextColumn.Binding>
+                        <Binding Path="Filepath"
+                                 NotifyOnTargetUpdated="True" 
+                                 UpdateSourceTrigger="PropertyChanged" 
+                                 Mode="TwoWay" 
+                                 ValidatesOnDataErrors="True">
+                            <Binding.ValidationRules>
+                                <local:FilepathValidationRule ValidatesOnTargetUpdated="True"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
