@@ -14,7 +14,6 @@ namespace FansaDBox.data
         public string authorSave = "authors.csv";
         public string volumeSave = "volumes.csv";
 
-        public string ressourceFolder = "C:\\Users\\Ehlion\\source\\repos\\FileManager_Python\\ressources\\";
         public string ratePointImage = "gold_star.png";
         public string rateDownImage = "grey_star.png";
         public string arrowUpImage = "arrow-up_small.png";
